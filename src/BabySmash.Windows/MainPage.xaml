@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="BabySmash.Windows.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BabySmash.Windows"
+    xmlns:helpers="using:BabySmash.Windows.Helpers"
+    xmlns:controls="using:BabySmash.Windows.Controls"
+    xmlns:views="using:BabySmash.Windows.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="glowTextTemplate">
+                    <controls:GlowTextCustomControl GlowAmount="10" MaxGlowAmount="30" 
+                                                    AnimateGlow="True"
+                                                    FontSize="{Binding FontSize}"
+                                                    IsEnabled="{Binding IsVisible,Mode=TwoWay}"
+                                                    Text="{Binding}"
+                                                    Width="{Binding Size.Width}"
+                                                    Height="{Binding Size.Height}"
+                                                    ForegroundColor="{Binding FillColor, Converter={StaticResource formsColorConverter}}" 
+                                                    GlowColor="{Binding StrokeColor, Converter={StaticResource formsColorConverter}}"
+                                                    />
+                </DataTemplate>
+               
+                <DataTemplate x:Key="glowShapeTemplate">
+                    <controls:GlowShapeCustomControl GlowAmount="10" MaxGlowAmount="30" 
+                                                    AnimateGlow="True"
+                                                    FontSize="20"
+                                                    IsEnabled="{Binding IsVisible,Mode=TwoWay}"
+                                                    ShapeType="{Binding Type}"
+                                                    Width="{Binding Size.Width}"
+                                                    Height="{Binding Size.Height}"
+                                                    ForegroundColor="{Binding FillColor, Converter={StaticResource formsColorConverter}}" 
+                                                    GlowColor="{Binding StrokeColor, Converter={StaticResource formsColorConverter}}"
+                                                    />
+                </DataTemplate>
+                
+                <helpers:FigureTemplateSelector x:Key="myFigureTemplateSelector" TextTemplate="{StaticResource glowTextTemplate}" ShapeTemplate="{StaticResource glowShapeTemplate}" />
+            </ResourceDictionary>
+        </Grid.Resources>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20">
+            <TextBlock Text="{Binding HelloMessage}"></TextBlock>     
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Figures}" ItemTemplateSelector="{StaticResource myFigureTemplateSelector}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter" >
+                    <Setter Property="helpers:SetterValueBindingHelper.PropertyBinding">
+                        <Setter.Value>
+                            <helpers:SetterValueBindingHelper>
+                                <helpers:SetterValueBindingHelper Type="Canvas" Property="Left" Binding="{Binding Position.X}" />
+                                <helpers:SetterValueBindingHelper Type="Canvas" Property="Top" Binding="{Binding Position.Y}" />
+                            </helpers:SetterValueBindingHelper>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+
+        <views:SettingsView Width="200" Height="300" HorizontalAlignment="Right" VerticalAlignment="Top"></views:SettingsView>
+    </Grid>
+</Page>
