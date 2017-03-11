@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BabySmash.Core.Models
 {
-	public class Figure
+    public class Figure
 	{
 		public Figure()
 		{

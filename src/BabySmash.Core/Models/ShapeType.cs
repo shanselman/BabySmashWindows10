@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BabySmash.Core.Models
+﻿namespace BabySmash.Core.Models
 {
-	public enum ShapeType
+    public enum ShapeType
 	{
 		Circle = 0,
 		Line = 1,

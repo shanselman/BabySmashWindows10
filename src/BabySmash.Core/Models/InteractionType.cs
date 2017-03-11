@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BabySmash.Core.Models
+﻿namespace BabySmash.Core.Models
 {
-	public enum  InteractionType
+    public enum  InteractionType
 	{
 		MouseClick = 0,
 		MouseMove = 1,
