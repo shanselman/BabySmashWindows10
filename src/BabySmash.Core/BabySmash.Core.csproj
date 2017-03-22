@@ -36,6 +36,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourcesBabySmash.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Languages\ResourcesBabySmash.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourcesBabySmash.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Languages\ResourcesBabySmash.pt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +95,10 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Languages\ResourcesBabySmash.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourcesBabySmash.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Languages\ResourcesBabySmash.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourcesBabySmash.pt.Designer.cs</LastGenOutput>
