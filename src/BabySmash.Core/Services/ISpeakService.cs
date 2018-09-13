@@ -13,5 +13,10 @@ namespace BabySmash.Core.Services
 		Task SpeakSSMLAsync(string text);
 		Task SpeakUriStreamAsync(Uri url);
 		void SetLanguage(Language language);
-	}
+
+	    string Language
+	    {
+	        get;
+	    }
+    }
 }

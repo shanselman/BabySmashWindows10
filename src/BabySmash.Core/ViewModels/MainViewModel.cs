@@ -117,16 +117,17 @@ namespace BabySmash.Core.ViewModels
 
 			//could be a letter or number
 			if(key.Length == 1) {
-				// If a letter was pressed, display the letter.
-				if(Regex.IsMatch(key, @"^[a-zA-Z]+$"))
-					await AddLetter(key[0]);
-
 				// If a number is pressed, display the number.
 				if(Regex.IsMatch(key, @"^[0-9]+$")) {
 					int number;
 					if(int.TryParse(key, out number))
 						await AddNumber(int.Parse(key));
 				}
+				// If a letter was pressed, display the letter.
+                else
+                {
+				    await AddLetter(key[0]);
+                }
 			} else {
 				// Otherwise, display a random shape.
 				await AddFigureAsync(new ShapeFigure());
@@ -194,7 +195,7 @@ namespace BabySmash.Core.ViewModels
 					textToRead = shape.ToString();
 				await this.speakService.SpeakTextAsync(textToRead);
 			} else {
-				await this.speakService.SpeakSSMLAsync(this.languageService.GetLanguageTextForLetter(figure.ToString()));
+				await this.speakService.SpeakSSMLAsync(this.languageService.GetLanguageTextForLetter(figure.ToString(), this.speakService.Language));
 			}
 		}
 	}

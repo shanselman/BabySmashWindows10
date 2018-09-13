@@ -12,13 +12,18 @@ namespace BabySmash.Windows.Services
 {
 	public class SpeakService : ISpeakService
 	{
-		public SpeakService(ISoundService soundService)
+	    public SpeakService(ISoundService soundService)
 		{
 			this.synthesizer = new SpeechSynthesizer();
 			this.soundService = soundService;
 		}
 
-		public void SetLanguage(Language language)
+	    public string Language
+	    {
+	        get { return this.synthesizer.Voice.Language; }
+	    }
+
+	    public void SetLanguage(Language language)
 		{
 			this.synthesizer.Voice = SpeechSynthesizer.AllVoices.FirstOrDefault(v => v.Id == language.Id);
 		}

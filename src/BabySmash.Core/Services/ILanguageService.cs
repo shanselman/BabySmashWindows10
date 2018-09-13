@@ -9,7 +9,7 @@ namespace BabySmash.Core.Services
 {
 	public interface ILanguageService
 	{
-		string GetLanguageTextForLetter(string letter);
+		string GetLanguageTextForLetter(string letter, string locale);
 		string GetLanguageTextForShape(ShapeType shape);
 
 		IList<Language> GetLanguages();

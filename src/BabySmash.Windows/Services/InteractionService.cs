@@ -2,8 +2,7 @@
 using BabySmash.Core.Models;
 using BabySmash.Core.Services;
 using System;
-using Windows.System;
-using Windows.UI.Xaml;
+using Windows.UI.Core;
 
 namespace BabySmash.Windows.Services
 {
@@ -15,41 +14,16 @@ namespace BabySmash.Windows.Services
 		private bool isUsingSoftKeyboard;
 		public InteractionService()
 		{
-			Window.Current.CoreWindow.KeyUp += KeyUp;
-			Window.Current.CoreWindow.KeyDown += KeyDown;
+            CoreWindow.GetForCurrentThread().CharacterReceived += CharacterReceived;
 		}
 
-		private void KeyDown(global::Windows.UI.Core.CoreWindow sender, global::Windows.UI.Core.KeyEventArgs e)
-		{
-			char k = (char)0;
-			if (e.VirtualKey == VirtualKey.Control)
-				this.isCtrlKeyPressed = true;
-			else if (isCtrlKeyPressed) {
-				switch (e.VirtualKey) {
-					case VirtualKey.X:
-					OnInteractionOccured( new InteractionEventArgs(InteractionType.Exit) );
-					break;
-				}
-			}
-			
-			if (e.VirtualKey >= VirtualKey.Number0 && e.VirtualKey <= VirtualKey.Number9)
-            {
-                k =   (char) ('0' + e.VirtualKey - VirtualKey.Number0);
-            }
-
-			if (e.VirtualKey >= VirtualKey.NumberPad0 && e.VirtualKey <= VirtualKey.NumberPad9)
-            {
-                k =   (char) ('0' + e.VirtualKey - VirtualKey.NumberPad0);
-            }
-
-         	OnInteractionOccured( new InteractionEventArgs(InteractionType.KeyPress) { Key = k == 0 ? e.VirtualKey.ToString() : k.ToString() });
-		}
-
-
-		private void KeyUp(global::Windows.UI.Core.CoreWindow sender, global::Windows.UI.Core.KeyEventArgs e)
-		{
-			 if (e.VirtualKey == VirtualKey.Control) isCtrlKeyPressed = true;
-		}
+        private void CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
+        {
+            args.Handled = true;
+            OnInteractionOccured(args.KeyCode == 24
+                ? new InteractionEventArgs(InteractionType.Exit)
+                : new InteractionEventArgs(InteractionType.KeyPress) {Key = ((char) args.KeyCode).ToString().ToUpper()});
+        }
 
 		private void OnInteractionOccured(InteractionEventArgs eventArgs)
 		{
@@ -102,9 +76,8 @@ namespace BabySmash.Windows.Services
 		{
 			if (!this.disposed) {
 				this.disposed = true;
-				Window.Current.CoreWindow.KeyUp -= KeyUp;
-				Window.Current.CoreWindow.KeyDown -= KeyDown;
-				if (this.isUsingSoftKeyboard) {
+			    CoreWindow.GetForCurrentThread().CharacterReceived -= CharacterReceived;
+                if (this.isUsingSoftKeyboard) {
 					//get rid of soft keyboard events
 				}
 			}
