@@ -1,9 +1,6 @@
 ﻿using BabySmash.Core.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BabySmash.Core.Models;
 using Windows.Media.SpeechSynthesis;
 using System.IO;
@@ -35,9 +32,9 @@ namespace BabySmash.Windows.Services
 			return this.availableLanguages ?? (this.availableLanguages = SpeechSynthesizer.AllVoices.Select(v => new Language { Id = v.Id, Locale = v.Language, FriendlyName = v.DisplayName }).ToList());
 		}
 
-		public string GetLanguageTextForLetter(string letter)
+		public string GetLanguageTextForLetter(string letter, string locale)
 		{
-			return string.Format(defaultSSML, letter);
+			return string.Format(defaultSSML, letter, locale);
 		}
 
 		public string GetLanguageTextForShape(ShapeType shape)
